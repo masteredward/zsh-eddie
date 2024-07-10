@@ -14,3 +14,33 @@ mmrm() {
     echo "Environment name parameter needed!"
   fi
 }
+
+pipup() {
+  if ! command -v "pip" > /dev/null; then
+    echo "No pip command found. Are you in a virtualenv?"
+    return 1
+  fi
+  if [[ -f "requirements.txt" ]]; then
+    echo "requirements.txt found. Installing/Updating."
+    pip install --upgrade -r requirements.txt
+  else
+    echo "No requirements.txt file found. Skipping..."
+  fi
+  if [[ -f "requirements-dev.txt" ]]; then
+    echo "requirements-dev.txt found. Installing/Updating."
+    pip install --upgrade -r requirements-dev.txt
+  else
+    echo "No requirements-dev.txt file found. Skipping..."
+  fi
+}
+
+npmup() {
+  local packages=($(npm list -g --depth=0 --parseable | awk -F/ '{print $NF}' | grep -v 'npm@'))
+
+  for package in $packages; do
+    echo "Updating $package..."
+    npm install -g $package
+  done
+
+  echo "All global npm packages are updated."
+}

@@ -1,0 +1,17 @@
+update_nvm() {
+  # Check if nvm is installed
+  if type nvm > /dev/null 2>&1; then
+    echo "Updating NVM..."
+
+    # Fetch the latest version of nvm from GitHub and update
+    (
+      cd "$NVM_DIR"
+      git fetch --tags origin
+      git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    ) && . "$NVM_DIR/nvm.sh"
+    echo "NVM has been updated to the latest version."
+    echo "NVM binary version: $(nvm --version)"
+  else
+    echo "NVM is not installed. Please install it first."
+  fi
+}

@@ -1,5 +1,7 @@
-source ${0:A:h}/envs.zsh
-source ${0:A:h}/aliases.zsh
-source ${0:A:h}/functions.zsh
-source ${0:A:h}/micromamba.zsh
-source ${0:A:h}/private.zsh
+local PLUGIN_DIR=$(dirname "${(%):-%N}")
+
+for FILE in "$PLUGIN_DIR"/*.zsh; do
+    # Skip the main plugin script to avoid circular sourcing
+    [[ "$FILE" == "$PLUGIN_DIR/zsh-eddie.plugin.zsh" ]] && continue
+    source "$FILE"
+done
