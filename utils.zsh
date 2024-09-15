@@ -1,3 +1,5 @@
+alias zsheddie_edit='code $ZSH_CUSTOM/plugins/zsh-eddie'
+
 convert_time() {
   if [ "$#" -ne 2 ]; then
     echo "Usage: convert_time HH:MM Timezone"
