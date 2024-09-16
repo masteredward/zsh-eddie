@@ -1,4 +1,21 @@
-alias zsheddie_edit='code $ZSH_CUSTOM/plugins/zsh-eddie'
+zsheddie() {
+  local ZSHEDDIE_PATH="$ZSH_CUSTOM"/plugins/zsh-eddie
+  case "$1" in
+    edit)
+       code $ZSHEDDIE_PATH
+       ;;
+    update)
+      git --work-tree=$ZSHEDDIE_PATH --git-dir=$ZSHEDDIE_PATH/.git pull
+      echo "Don't forget to reload your shell when pulling changes from git. Use \"exec zsh\"."
+      ;;
+    cd)
+      cd $ZSHEDDIE_PATH
+      ;;
+    *)
+      echo 'Unknown parameter. Allowed: edit|update|cd'
+      ;;
+  esac
+}
 
 convert_time() {
   if [ "$#" -ne 2 ]; then
