@@ -1,3 +1,5 @@
+EDITOR="code --wait"; export EDITOR
+
 zsheddie() {
   local ZSHEDDIE_PATH="$ZSH_CUSTOM"/plugins/zsh-eddie
   case "$1" in

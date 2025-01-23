@@ -3,8 +3,18 @@ alias mm='micromamba'
 alias mmu='micromamba update'
 alias mmsu='micromamba self-update'
 alias mma='micromamba activate'
-alias mmc='micromamba create'
+alias mmd='micromamba deactivate'
 alias mmls='ls $MAMBA_ROOT_PREFIX/envs'
+
+mmc() {
+  if [[ $# -lt 2 ]]; then
+    echo "Usage: mmc <prefix> <package=version> [<package2=version2> ...]"
+    return 1
+  fi
+  local prefix="$1"
+  shift
+  micromamba create -p "$prefix" "$@"
+}
 
 mmrm() {
   if [[ -n "$MAMBA_ROOT_PREFIX" ]]; then
