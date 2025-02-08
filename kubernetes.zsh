@@ -25,3 +25,37 @@ kube_run_sa() {
       --image="$IMAGE" \
       --overrides='{"spec": {"serviceAccountName": "'$SA'"}}'
 }
+
+kube_install() {
+  local VERSION="$1"
+  if [ -z "$VERSION" ]; then
+    echo "Usage: kube_install <version> (e.g. 1.31)"
+    return 1
+  fi
+  local ARCH=$(uname -m)
+  local KUBE_ARCH
+  case $ARCH in
+    x86_64)
+      KUBE_ARCH="amd64"
+      ;;
+    aarch64)
+      KUBE_ARCH="arm64"
+      ;;
+    *)
+      echo "Unsupported architecture: $ARCH"
+      return 1
+      ;;
+  esac
+  local FULL_VERSION=$(curl -s https://api.github.com/repos/kubernetes/kubernetes/releases | \
+    grep -o 'v'"${VERSION}"'\.[0-9]*' | \
+    sort -V | \
+    tail -n1)
+  if [ -z "$FULL_VERSION" ]; then
+    echo "No matching version found for ${VERSION}"
+    return 1
+  fi
+  echo "Installing kubectl ${FULL_VERSION} for ${ARCH}..."
+  sudo curl -Lo /usr/local/bin/kubectl "https://dl.k8s.io/release/${FULL_VERSION}/bin/linux/${KUBE_ARCH}/kubectl" && \
+  sudo chmod +x /usr/local/bin/kubectl && \
+  echo "kubectl ${FULL_VERSION} installed successfully for ${ARCH}"
+}
