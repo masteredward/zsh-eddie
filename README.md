@@ -1,4 +1,4 @@
-Collecting workspace information# zsh-eddie
+# zsh-eddie
 
 A collection of ZSH utility functions, aliases, and configurations for various developer tools. This plugin provides convenient shortcuts and helpers for daily development tasks.
 
