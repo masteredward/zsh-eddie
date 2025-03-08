@@ -11,7 +11,7 @@ case "$ID" in
     ;;
 esac
 
-docker_arm64_install() {
+docker_multiarch_install() {
   case "$ID" in
     opensuse-tumbleweed)
       sudo zypper in -y \
@@ -22,10 +22,7 @@ docker_arm64_install() {
       ;;
     fedora)
       sudo dnf install -y \
-        qemu \
-        qemu-arm \
-        qemu-uefi-aarch64 \
-        qemu-user
+        qemu-user-static
       ;;
   esac
 }
