@@ -1,4 +1,5 @@
 KUBE_EDITOR="code --wait"; export KUBE_EDITOR
+KUBECTL_EXTERNAL_DIFF="colordiff -N -u"; export KUBECTL_EXTERNAL_DIFF
 
 alias k='kubectl --insecure-skip-tls-verify'
 alias argocdbaseinst='helm upgrade --install argocd --repo https://argoproj.github.io/argo-helm argo-cd --namespace argocd --create-namespace'
