@@ -1,7 +1,23 @@
-KUBE_EDITOR="code --wait"; export KUBE_EDITOR
-KUBECTL_EXTERNAL_DIFF="colordiff -N -u"; export KUBECTL_EXTERNAL_DIFF
+# Set KUBE_EDITOR: prefer code-insiders, then code, fallback to nano
+if command -v code-insiders &> /dev/null; then
+  KUBE_EDITOR="code-insiders --wait"
+elif command -v code &> /dev/null; then
+  KUBE_EDITOR="code --wait"
+else
+  KUBE_EDITOR="nano"
+fi
+export KUBE_EDITOR
 
-alias k='kubectl --insecure-skip-tls-verify'
+# Set KUBECTL_EXTERNAL_DIFF: prefer colordiff, fallback to diff
+if command -v colordiff &> /dev/null; then
+  KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
+else
+  KUBECTL_EXTERNAL_DIFF="diff -u"
+fi
+export KUBECTL_EXTERNAL_DIFF
+
+alias k='kubectl'
+alias ki='kubectl --insecure-skip-tls-verify'
 alias argocdbaseinst='helm upgrade --install argocd --repo https://argoproj.github.io/argo-helm argo-cd --namespace argocd --create-namespace'
 alias argocdpasswd='kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo'
 alias argocdpf='kubectl port-forward -n argocd service/argocd-server 8080:443'

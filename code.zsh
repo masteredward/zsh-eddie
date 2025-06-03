@@ -1,4 +1,12 @@
-EDITOR="code --wait"; export EDITOR
+# Set EDITOR: prefer code-insiders, then code, fallback to nano
+if command -v code-insiders &> /dev/null; then
+  EDITOR="code-insiders --wait"
+elif command -v code &> /dev/null; then
+  EDITOR="code --wait"
+else
+  EDITOR="nano"
+fi
+export EDITOR
 
 vscode_settings() {
   if ! command -v gh &> /dev/null; then
