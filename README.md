@@ -40,15 +40,26 @@ Functions for working with [age](https://github.com/FiloSottile/age) encryption:
 
 - `ghcr_login` - Login to GitHub Container Registry
 
+
 ### Kubernetes Helpers
 
-- `k` - Alias for kubectl with TLS verification skipped
+- `k` - Alias for `kubectl`
+- `ki` - Alias for `kubectl --insecure-skip-tls-verify`
 - `argocdbaseinst` - Install ArgoCD with Helm
 - `argocdpasswd` - Get the ArgoCD initial admin password
 - `argocdpf` - Port forward ArgoCD server
 - `kube_awstest_sa <serviceaccount> <namespace>` - Test AWS access with a service account
 - `kube_run_sa <image> <namespace> <serviceaccount>` - Run a pod with specific service account
 - `kube_install <version>` - Install specific kubectl version
+
+#### Editor and Diff Tool Configuration
+
+- `KUBE_EDITOR` is set automatically: prefers `code-insiders`, then `code`, then falls back to `nano`.
+- `KUBECTL_EXTERNAL_DIFF` is set automatically: prefers `colordiff`, then falls back to `diff`.
+
+#### General Editor Configuration
+
+- `EDITOR` is set automatically (in `code.zsh`): prefers `code-insiders`, then `code`, then falls back to `nano`.
 
 ### File Listing
 
