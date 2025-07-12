@@ -1,1 +1,0 @@
-alias podman='podman-remote'
